@@ -1,14 +1,22 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 import auth from "./routes/auth";
 import tasks from "./routes/tasks";
 import tokenParser from "./middleware/tokenParser";
 import protectRoute from "./middleware/proctectRoute";
 import database from "./database";
-import { port } from "./utils/config";
+import { port, originURL } from "./utils/config";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: originURL,
+    credentials: true
+  })
+);
 
 app.use(bodyParser.json());
 

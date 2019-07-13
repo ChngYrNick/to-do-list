@@ -6,6 +6,7 @@ dotenv.config({ path: root(".env") });
 
 export const url = process.env.URL;
 export const port = process.env.PORT;
+export const originURL = process.env.ORIGIN_URL;
 
 export const key = process.env.KEY;
 
