@@ -1,0 +1,11 @@
+@import "../styles/global";
+
+.auth-page {
+  .box {
+    height: 400px;
+    width: 350px;
+    box-shadow: $shadow;
+    margin-bottom: $freeSpace;
+    margin-top: $headerHeight;
+  }
+}

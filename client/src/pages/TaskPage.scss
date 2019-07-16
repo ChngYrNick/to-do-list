@@ -1,0 +1,92 @@
+@import "../styles/global";
+
+.task-page {
+  .toolbar {
+    display: flex;
+    margin-bottom: $freeSpace;
+    .btns {
+      display: flex;
+      flex-direction: row;
+      .btn {
+        margin-left: $freeSpace;
+        font-size: 17px;
+        @include btn(57px, 100px);
+      }
+
+      .add-btn {
+        margin-left: $freeSpace;
+        font-size: 17px;
+        @include btn(57px, 100px, rgb(0, 255, 51));
+      }
+    }
+  }
+  .box {
+    padding: $freeSpace / 2;
+    min-height: 80px;
+    box-shadow: $shadow;
+    margin-bottom: $freeSpace;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $whiteColor;
+
+    .lower-section {
+      display: flex;
+      flex-direction: row;
+      .date {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        padding-top: $freeSpace / 2;
+        font-size: 14px;
+        color: #b1b1b1;
+        border-top: 1px solid $borderColor;
+      }
+      .btns {
+        border-top: 1px solid $borderColor;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: $freeSpace / 2;
+      }
+    }
+
+    .text {
+      min-height: 80px;
+    }
+
+    .btn {
+      margin-left: $freeSpace / 2;
+      font-size: 19px;
+      @include btn(38px, 78px);
+    }
+
+    .delete-btn {
+      margin-left: $freeSpace / 2;
+      font-size: 19px;
+      @include btn(38px, 78px, rgb(255, 52, 52));
+    }
+  }
+
+  @media (max-width: 1223px) {
+    .box {
+      flex-direction: row;
+      .lower-section {
+        flex-direction: column-reverse;
+        .date {
+          border: none;
+          margin-left: $freeSpace / 2;
+        }
+        .btns {
+          border: none;
+          flex-grow: 1;
+        }
+      }
+
+      .text {
+        flex-grow: 1;
+        width: 100%;
+      }
+    }
+  }
+}

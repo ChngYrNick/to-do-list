@@ -1,0 +1,36 @@
+@import "../styles/global";
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: $headerHeight;
+  background-color: $whiteColor;
+  box-shadow: $shadow;
+  z-index: 1000;
+
+  .container {
+    justify-content: space-around;
+    flex: 1;
+    padding-left: $freeSpace;
+    padding-right: $freeSpace;
+
+    button {
+      font-size: 17px;
+      @include btn();
+    }
+  }
+
+  .logo {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: $freeSpace;
+    padding-right: $freeSpace;
+  }
+}

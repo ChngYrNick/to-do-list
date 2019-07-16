@@ -1,0 +1,23 @@
+$blackColor: #333;
+$whiteColor: #fff;
+$borderColor: #dadada;
+$primaryColor: #0ebbff;
+$freeSpace: 15px;
+$headerHeight: 60px;
+$shadow: 0 0 3px rgba(141, 141, 141, 0.5);
+$asideFreeSpace: 250px;
+
+@mixin btn($height: 28px, $width: 65px, $color: $primaryColor) {
+  height: $height;
+  width: $width;
+  color: $whiteColor;
+  box-shadow: $shadow;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  background-color: $color;
+
+  &:hover {
+    background-color: lighten($color, 10);
+  }
+}

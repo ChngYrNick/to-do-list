@@ -1,0 +1,9 @@
+@import "../styles/global";
+
+.input {
+  padding: $freeSpace;
+  border: 1px solid $borderColor;
+  font-size: 19px;
+  width: 100%;
+  box-shadow: $shadow;
+}

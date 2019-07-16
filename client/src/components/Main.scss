@@ -1,0 +1,47 @@
+@import "../styles/global";
+
+.main {
+  margin-right: $asideFreeSpace;
+  margin-left: $asideFreeSpace;
+
+  .content {
+    margin-bottom: $freeSpace;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .main {
+    margin-left: $asideFreeSpace / 3;
+    margin-right: $asideFreeSpace / 3;
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .main {
+    margin-left: $freeSpace;
+    margin-right: $freeSpace;
+  }
+}
+
+/* For desktops and large portrait tablets*/
+@media (min-width: 992px) and (max-width: 1223px) {
+  .main {
+    margin-right: $asideFreeSpace / 2;
+    margin-left: $asideFreeSpace / 2;
+  }
+}
+
+/* For large desktops */
+@media (min-width: 1824px) {
+  .main {
+    margin-right: $asideFreeSpace + 125px;
+    margin-left: $asideFreeSpace + 125px;
+  }
+}

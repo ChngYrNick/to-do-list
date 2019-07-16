@@ -7,7 +7,14 @@ const router = express.Router();
 router.get("/tasks", (req, res) => {
   Task.find({})
     .then(tasks => {
-      res.json(tasks);
+      const data = [];
+      Object.keys(tasks).forEach(key => {
+        const { title, _id, date } = tasks[key];
+        data.push({ title, _id, date });
+      });
+      console.log(data);
+
+      res.json(data);
     })
     .catch(err => {
       res.send(err);
@@ -49,7 +56,7 @@ router.post("/task", (req, res) => {
 });
 
 router.delete("/task/:id", (req, res) => {
-  Task.findByIdAndDelete(req.body.taskId, err => {
+  Task.findByIdAndDelete(req.params.id, err => {
     if (err) {
       res.send(err);
     }
