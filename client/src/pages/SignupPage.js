@@ -26,31 +26,32 @@ function SignupPage(props) {
     form
   );
 
+  const handleClick = e => {
+    e.preventDefault();
+    const { login, password } = form.values;
+    signUp(login, password).then(res => {
+      if (res.status === 200) {
+        props.history.push("/signin");
+      }
+    });
+  };
+
   return (
     <div className="auth-page">
       <div className="content">
         <div className="box">
           <div className="title">Sign up</div>
-          <div className="body">
-            <Input {...loginInput} />
-            <Input {...passwordInput} />
-          </div>
-          <div className="btns">
-            <button
-              className="btn"
-              onClick={e => {
-                e.preventDefault();
-                const { login, password } = form.values;
-                signUp(login, password).then(res => {
-                  if (res.status === 200) {
-                    props.history.push("/signin");
-                  }
-                });
-              }}
-            >
-              Sign up
-            </button>
-          </div>
+          <form onSubmit={handleClick}>
+            <div className="body">
+              <Input {...loginInput} />
+              <Input {...passwordInput} />
+            </div>
+            <div className="btns">
+              <button className="btn" type="submit">
+                Sign up
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

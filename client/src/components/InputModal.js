@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import "./ModalInput.scss";
+import "./InputModal.scss";
 
 const ModalInput = ({ title, isOpen, children }) => {
   return (

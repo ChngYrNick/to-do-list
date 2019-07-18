@@ -28,33 +28,34 @@ function SigninPage(props) {
     form
   );
 
+  const handleClick = e => {
+    e.preventDefault();
+    const { login, password } = form.values;
+    signIn(login, password).then(res => {
+      if (res.status === 200) {
+        const { login, token } = res.data;
+        props.logIn({ login, token });
+        props.history.push("/");
+      }
+    });
+  };
+
   return (
     <div className="auth-page">
       <div className="content">
         <div className="box">
           <div className="title">Sign in</div>
-          <div className="body">
-            <Input {...loginInput} />
-            <Input {...passwordInput} />
-          </div>
-          <div className="btns">
-            <button
-              className="btn"
-              onClick={e => {
-                e.preventDefault();
-                const { login, password } = form.values;
-                signIn(login, password).then(res => {
-                  if (res.status === 200) {
-                    const { login, token } = res.data;
-                    props.logIn({ login, token });
-                    props.history.push("/");
-                  }
-                });
-              }}
-            >
-              Sign in
-            </button>
-          </div>
+          <form onSubmit={handleClick}>
+            <div className="body">
+              <Input {...loginInput} />
+              <Input {...passwordInput} />
+            </div>
+            <div className="btns">
+              <button className="btn" type="submit">
+                Sign in
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

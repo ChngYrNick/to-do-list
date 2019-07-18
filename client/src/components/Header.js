@@ -7,40 +7,28 @@ import { logOut } from "../libs/actions";
 import "./Header.scss";
 
 function Header(props) {
+  const onSignUpClick = e => {
+    e.preventDefault();
+    props.history.push("/signup");
+  };
+
+  const onSignInClick = e => {
+    e.preventDefault();
+    props.history.push("/signin");
+  };
+
+  const onLogOutClick = e => {
+    e.preventDefault();
+    props.logOut();
+  };
+
   const renderBtns = () => {
     if (props.me.login) {
-      return (
-        <button
-          onClick={e => {
-            e.preventDefault();
-            props.logOut();
-          }}
-        >
-          Logout
-        </button>
-      );
+      return <button onClick={onLogOutClick}>Logout</button>;
     } else if (props.location.pathname === "/signin") {
-      return (
-        <button
-          onClick={e => {
-            e.preventDefault();
-            props.history.push("/signup");
-          }}
-        >
-          Sign up
-        </button>
-      );
+      return <button onClick={onSignUpClick}>Sign up</button>;
     } else {
-      return (
-        <button
-          onClick={e => {
-            e.preventDefault();
-            props.history.push("/signin");
-          }}
-        >
-          Sign in
-        </button>
-      );
+      return <button onClick={onSignInClick}>Sign in</button>;
     }
   };
 
