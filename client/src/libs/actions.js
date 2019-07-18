@@ -12,9 +12,27 @@ export const logOut = () => ({
 });
 
 //modal window
-export const MODAL = "MODAL";
+export const MOUNT_MODAL = "MOUNT_MODAL";
+export const UNMOUNT_MODAL = "UNMOUNT_MODAL";
 
-export const setModalState = modal => ({
-  type: MODAL,
+export const mountModal = modal => ({
+  type: MOUNT_MODAL,
   modal
+});
+
+export const unmountModal = () => ({
+  type: UNMOUNT_MODAL
+});
+
+//modal input window
+export const MOUNT_INPUT_MODAL = "MOUNT_INPUT_MODAL";
+export const UNMOUNT_INPUT_MODAL = "UNMOUNT_INPUT_MODAL";
+
+export const mountInputModal = inputModal => ({
+  type: MOUNT_INPUT_MODAL,
+  inputModal
+});
+
+export const unmountInputModal = () => ({
+  type: UNMOUNT_INPUT_MODAL
 });

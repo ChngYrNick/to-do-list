@@ -1,0 +1,15 @@
+@import "../styles/global";
+
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  margin-top: $headerHeight;
+
+  align-items: center;
+  .err {
+    font-size: 125px;
+  }
+  .desc {
+    font-size: 50px;
+  }
+}

@@ -19,7 +19,7 @@ function SearchBar(props) {
 
   return (
     <input
-      className="input"
+      className="searchbar-input"
       value={term}
       type="text"
       placeholder="Search for task"

@@ -7,5 +7,27 @@
     box-shadow: $shadow;
     margin-bottom: $freeSpace;
     margin-top: $headerHeight;
+    padding: $freeSpace;
+    background-color: $whiteColor;
+
+    .title {
+      font-size: 50px;
+      border-bottom: 1px solid $borderColor;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: $freeSpace;
+
+      .btn {
+        font-size: 17px;
+        @include btn(39px, 75px);
+      }
+    }
+
+    .body {
+      padding-top: $freeSpace;
+    }
   }
 }

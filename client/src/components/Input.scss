@@ -1,9 +1,8 @@
 @import "../styles/global";
 
-.searchbar-input {
-  padding: $freeSpace;
+.input {
+  padding: $freeSpace / 2;
   border: 1px solid $borderColor;
   font-size: 19px;
   width: 100%;
-  box-shadow: $shadow;
 }

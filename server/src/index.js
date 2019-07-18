@@ -24,7 +24,7 @@ app.use(tokenParser);
 
 app.use("/api", auth);
 
-app.use("/api", tasks);
+app.use("/api", protectRoute, tasks);
 
 database()
   .then(info => {

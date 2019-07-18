@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { hash, compare } from "bcryptjs";
 
 const { Schema } = mongoose;
-const { ObjectId } = mongoose.Types;
 
 const userSchema = new Schema(
   {
@@ -19,19 +18,7 @@ const userSchema = new Schema(
   { collection: "users", versionKey: false }
 );
 
-ObjectId.prototype.valueOf = () => {
-  return this.toString();
-};
-
-userSchema.virtual("userId").get(() => {
-  return this._id;
-});
-
-userSchema.set("toJSON", {
-  virtuals: true
-});
-
-userSchema.pre("save", next => {
+userSchema.pre("save", function hashPassword(next) {
   if (this.isModified("password")) {
     hash(this.password, 10).then(hashedPassword => {
       this.password = hashedPassword;
@@ -40,7 +27,8 @@ userSchema.pre("save", next => {
   }
 });
 
-userSchema.methods.matchesPassword = (password, next) => {
+// eslint-disable-next-line
+userSchema.methods.matchesPassword = function(password, next) {
   compare(password, this.password, (err, isMatch) => {
     if (err) return next(err);
     next(null, isMatch);

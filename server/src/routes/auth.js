@@ -2,20 +2,20 @@ import express from "express";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user";
-import key from "../utils/config";
+import { key } from "../utils/config";
 
 const router = express.Router();
 
 router.post("/auth/signin", (req, res) => {
-  User.findById(req.body.userId)
+  User.findOne({ login: req.body.login })
     .then(user => {
       user.matchesPassword(req.body.password, (err, isMatch) => {
         if (isMatch) {
-          const { userId, login } = user;
-          const token = jwt.sign({ userId }, key);
-
+          const { _id, login } = user;
+          const token = jwt.sign({ userId: _id }, key);
+          console.log(token);
           res.status(200).json({
-            userId,
+            userId: _id,
             token,
             login
           });
@@ -36,19 +36,11 @@ router.post("/auth/signup", (req, res) => {
     } else {
       const { login, password } = req.body;
 
-      User.create(
-        {
-          login,
-          password
-        },
-        err => {
-          if (err) {
-            res.send(err);
-          } else {
-            res.redirect("/auth/signin");
-          }
-        }
-      );
+      const newUser = new User({ login, password });
+
+      newUser.save();
+
+      return res.status(200).json({ message: "User created!" });
     }
   });
 });

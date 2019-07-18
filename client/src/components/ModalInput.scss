@@ -1,6 +1,6 @@
 @import "../styles/global";
 
-.modalOverlay {
+.modalInputOverlay {
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -18,13 +18,17 @@
     width: 500px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     margin-top: -($freeSpace + $headerHeight);
 
     .modalHeader,
     .modalBody,
     .modalFooter {
       padding: $freeSpace;
+    }
+    .modalBody {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .modalHeader {
@@ -40,17 +44,19 @@
       font-weight: bold;
     }
 
-    .modalFooter {
+    .modalContent {
+      flex-grow: 1;
+    }
+
+    .btns {
       display: flex;
       justify-content: flex-end;
       align-items: center;
     }
 
-    .modalFooter button:last-child {
-      margin-left: $freeSpace;
-    }
-
     .btn {
+      margin-left: $freeSpace;
+      margin-top: $freeSpace;
       font-size: 17px;
       @include btn();
     }

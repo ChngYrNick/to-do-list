@@ -4,6 +4,7 @@ import Task from "../models/task";
 
 const router = express.Router();
 
+// ???
 router.get("/tasks", (req, res) => {
   Task.find({})
     .then(tasks => {
@@ -12,7 +13,6 @@ router.get("/tasks", (req, res) => {
         const { title, _id, date } = tasks[key];
         data.push({ title, _id, date });
       });
-      console.log(data);
 
       res.json(data);
     })
@@ -22,7 +22,7 @@ router.get("/tasks", (req, res) => {
 });
 
 router.get("/task/:id", (req, res) => {
-  Task.findById(req.body.taskId)
+  Task.findById(req.params.id)
     .then(task => {
       res.json(task);
     })
@@ -32,13 +32,11 @@ router.get("/task/:id", (req, res) => {
 });
 
 router.post("/task", (req, res) => {
-  const { task } = req.body;
+  const { title, date } = req.body;
 
-  if (!task.title) {
+  if (!title) {
     res.status(400).json({ message: "Title is required" });
   } else {
-    const { title, date } = task;
-
     Task.create(
       {
         title,
@@ -56,27 +54,27 @@ router.post("/task", (req, res) => {
 });
 
 router.delete("/task/:id", (req, res) => {
-  Task.findByIdAndDelete(req.params.id, err => {
+  Task.findByIdAndDelete(req.params.id, (err, result) => {
     if (err) {
       res.send(err);
+    } else {
+      res.json(result);
     }
   });
 });
 
 router.put("/task/:id", (req, res) => {
-  const { task } = req.body;
-
-  if (!task.title) {
+  const { title, date } = req.body;
+  if (!title) {
     res.status(400).json({ message: "Title is required" });
   } else {
-    const { title, date, titleId } = task;
-
     Task.findByIdAndUpdate(
-      titleId,
+      req.params.id,
       {
         title,
         date
       },
+      { new: true },
       (err, result) => {
         if (err) {
           res.send(err);

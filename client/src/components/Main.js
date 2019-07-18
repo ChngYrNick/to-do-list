@@ -1,26 +1,26 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 
-import AuthPage from "../pages/AuthPage";
+import SignupPage from "../pages/SignupPage";
+import SigninPage from "../pages/SigninPage";
 import TaskPage from "../pages/TaskPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import { logIn } from "../libs/actions";
 
 import "./Main.scss";
 
 function Main(props) {
   return (
-    <BrowserRouter>
-      <Fragment>
-        <main className="main">
-          <Switch>
-            {props.me.token && <Redirect from="/auth" to="/" exact />}
-            {!props.me.token && <Route path="/auth" component={AuthPage} />}
-            {!props.me.token && <Route path="/" component={TaskPage} />}
-          </Switch>
-        </main>
-      </Fragment>
-    </BrowserRouter>
+    <main className="main">
+      <Switch>
+        {!props.me.token && <Redirect from="/" to="/signin" exact />}
+        {!props.me.token && <Route path="/signup" component={SignupPage} />}
+        {!props.me.token && <Route path="/signin" component={SigninPage} />}
+        {props.me.token && <Route path="/" component={TaskPage} />}
+        <Route component={NotFoundPage} />
+      </Switch>
+    </main>
   );
 }
 

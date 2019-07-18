@@ -6,7 +6,6 @@ export const getList = () => {
       headers: { "Content-Type": "application/json" }
     })
     .then(res => {
-      console.log(res.data);
       return res.data;
     });
 };
@@ -23,25 +22,25 @@ export const addTask = term => {
         headers: { "Content-Type": "application/json" }
       }
     )
-    .then(function(response) {
-      console.log(response);
+    .then(response => {
+      return response;
     });
 };
 
 export const deleteTask = term => {
-  axios
+  return axios
     .delete(`http://localhost:3001/api/task/${term}`, {
       headers: { "Content-Type": "application/json" }
     })
-    .then(function(response) {
-      console.log(response);
+    .then(response => {
+      return response;
     })
-    .catch(function(error) {
+    .catch(error => {
       console.log(error);
     });
 };
 
-export const updateTask = (term, id) => {
+export const editTask = (term, id) => {
   return axios
     .put(
       `http://localhost:3001/api/task/${id}`,
@@ -53,7 +52,7 @@ export const updateTask = (term, id) => {
         headers: { "Content-Type": "application/json" }
       }
     )
-    .then(function(response) {
-      console.log(response);
+    .then(response => {
+      return response;
     });
 };

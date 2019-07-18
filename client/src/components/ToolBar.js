@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+
+import { AddInput } from "../libs/inputs";
+import { addTask } from "../libs/TasksFunctions";
+import { mountInputModal, unmountInputModal } from "../libs/actions";
 
 function Toolbar(props) {
   const [sorted, setSorted] = useState({ title: true, date: true });
@@ -37,6 +42,27 @@ function Toolbar(props) {
     update(initialData);
   };
 
+  const onAdd = () => {
+    const {
+      mountInputModal,
+      unmountInputModal,
+      updateInitialData,
+      initialData
+    } = props;
+
+    mountInputModal({
+      title: "Create task",
+      children: (
+        <AddInput
+          unmountInputModal={unmountInputModal}
+          addTask={addTask}
+          updateData={updateInitialData}
+          data={initialData}
+        />
+      )
+    });
+  };
+
   return (
     <div className="btns">
       <button className="btn" onClick={() => sort("title")}>
@@ -48,9 +74,19 @@ function Toolbar(props) {
       <button className="btn" onClick={() => reset()}>
         Reset
       </button>
-      <button className="add-btn">Add</button>
+      <button className="add-btn" onClick={() => onAdd()}>
+        Add
+      </button>
     </div>
   );
 }
 
-export default Toolbar;
+const mapDispatchToProps = dispatch => ({
+  mountInputModal: event => dispatch(mountInputModal(event)),
+  unmountInputModal: event => dispatch(unmountInputModal(event))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Toolbar);

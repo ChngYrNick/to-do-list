@@ -13,6 +13,7 @@ export default (req, res, next) => {
           next();
         });
       } else {
+        console.log(err);
         next();
       }
     });

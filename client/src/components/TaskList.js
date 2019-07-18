@@ -1,18 +1,50 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 
-import Modal from "./Modal";
-import { deleteTask } from "../libs/TasksFunctions";
+import { deleteTask, editTask } from "../libs/TasksFunctions";
+import { EditInput } from "../libs/inputs";
+import {
+  mountModal,
+  unmountModal,
+  mountInputModal,
+  unmountInputModal
+} from "../libs/actions";
 
 function TaskList(props) {
-  const [isOpen, setIsOpen] = useState({ edit: false, delete: false });
-  const [id, setId] = useState(null);
+  const onDelete = id => {
+    const { mountModal, unmountModal, update, initialData } = props;
 
-  const onClick = e => {
-    const temp = {};
-    for (let key in isOpen) {
-      temp[key] = e.target.name === key ? !isOpen[key] : isOpen[key];
-    }
-    setIsOpen(temp);
+    mountModal({
+      title: "Delete Task",
+      onCancel: unmountModal,
+      onSubmit: () => {
+        deleteTask(id).then(res => {
+          if (res.status === 200) {
+            update(initialData.filter(val => val._id !== id));
+          }
+        });
+        unmountModal();
+      },
+      children: <p>Are you sure you want to delete this task?</p>
+    });
+  };
+
+  const onEdit = (id, title) => {
+    const { mountInputModal, unmountInputModal, update, initialData } = props;
+
+    mountInputModal({
+      title: "Edit task",
+      children: (
+        <EditInput
+          id={id}
+          term={title}
+          unmountInputModal={unmountInputModal}
+          editTask={editTask}
+          updateData={update}
+          data={initialData}
+        />
+      )
+    });
   };
 
   return props.data.map(val => {
@@ -29,39 +61,42 @@ function TaskList(props) {
     }
 
     return (
-      <Fragment key={val._id}>
-        <div className="box">
-          <div className="text">
-            {val.title} {val._id}
-          </div>
-          <div className="lower-section">
-            <div className="date">{`${date.day}/${date.month}/${date.year} ${
-              date.hours
-            }:${date.minutes}`}</div>
-            <div className="btns">
-              <button className="btn" name="edit" onClick={onClick}>
-                Edit
-              </button>
-              <button className="delete-btn" name="delete" onClick={onClick}>
-                Delete
-              </button>
-            </div>
+      <div className="box" key={val._id}>
+        <div className="text">{val.title}</div>
+        <div className="lower-section">
+          <div className="date">{`${date.day}/${date.month}/${date.year} ${
+            date.hours
+          }:${date.minutes}`}</div>
+          <div className="btns">
+            <button
+              className="btn"
+              name="edit"
+              onClick={() => onEdit(val._id, val.title)}
+            >
+              Edit
+            </button>
+            <button
+              className="delete-btn"
+              name="delete"
+              onClick={() => onDelete(val._id)}
+            >
+              Delete
+            </button>
           </div>
         </div>
-        <Modal
-          title="Confirmation window"
-          isOpen={isOpen.delete}
-          onCancel={() => setIsOpen({ edit: false, delete: false })}
-          onSubmit={() => {
-            deleteTask(val._id);
-            setIsOpen({ edit: false, delete: false });
-          }}
-        >
-          <p>Are you sure you want to delete this task? {val._id}</p>
-        </Modal>
-      </Fragment>
+      </div>
     );
   });
 }
 
-export default TaskList;
+const mapDispatchToProps = dispatch => ({
+  mountModal: event => dispatch(mountModal(event)),
+  unmountModal: event => dispatch(unmountModal(event)),
+  mountInputModal: event => dispatch(mountInputModal(event)),
+  unmountInputModal: event => dispatch(unmountInputModal(event))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(TaskList);

@@ -1,31 +1,25 @@
-import { MOUNT_MODAL, UNMOUNT_MODAL } from "../actions";
+import { MOUNT_INPUT_MODAL, UNMOUNT_INPUT_MODAL } from "../actions";
 
 const initialState = {
   title: "",
   isOpen: false,
-  onCancel: () => {},
-  onSubmit: () => {},
   children: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case MOUNT_MODAL:
-      const { title, onCancel, onSubmit, children } = action.modal;
+    case MOUNT_INPUT_MODAL:
+      const { title, children } = action.inputModal;
       return {
         title,
-        onCancel,
-        onSubmit,
         children,
         isOpen: true
       };
 
-    case UNMOUNT_MODAL:
+    case UNMOUNT_INPUT_MODAL:
       return {
         title: "",
         isOpen: false,
-        onCancel: () => {},
-        onSubmit: () => {},
         children: null
       };
     default:
