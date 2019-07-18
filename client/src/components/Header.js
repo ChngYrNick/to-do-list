@@ -22,7 +22,7 @@ function Header(props) {
     props.logOut();
   };
 
-  const renderBtns = () => {
+  const renderAuthBtn = () => {
     if (props.me.login) {
       return <button onClick={onLogOutClick}>Logout</button>;
     } else if (props.location.pathname === "/signin") {
@@ -32,12 +32,31 @@ function Header(props) {
     }
   };
 
+  const onHomeClick = e => {
+    e.preventDefault();
+    props.history.push("/");
+  };
+
+  const onProfileClick = e => {
+    e.preventDefault();
+    props.history.push("/user");
+  };
+
+  const renderNavBtn = () => {
+    if (props.location.pathname === "/") {
+      return <button onClick={onProfileClick}>Profile</button>;
+    } else {
+      return <button onClick={onHomeClick}>Home</button>;
+    }
+  };
+
   return (
     <header className="header">
       <div className="logo">Todo App</div>
       <div className="container">
         <div>{props.me.login ? `Welcome, ${props.me.login}!` : "Guest"}</div>
-        {renderBtns()}
+        {renderNavBtn()}
+        {renderAuthBtn()}
       </div>
     </header>
   );

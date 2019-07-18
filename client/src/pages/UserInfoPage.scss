@@ -1,0 +1,33 @@
+@import "../styles/global";
+
+.user-info-page {
+  .box {
+    height: 400px;
+    width: 350px;
+    box-shadow: $shadow;
+    margin-bottom: $freeSpace;
+    margin-top: $headerHeight;
+    padding: $freeSpace;
+    background-color: $whiteColor;
+
+    .title {
+      font-size: 40px;
+      border-bottom: 1px solid $borderColor;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+
+      .name {
+        margin-top: $freeSpace;
+      }
+
+      .date {
+        margin-top: $freeSpace;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

@@ -33,3 +33,13 @@ export const signUp = (login, password) => {
       return response;
     });
 };
+
+export const getUserInfo = () => {
+  return axios
+    .get("http://localhost:3001/api/user", {
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => {
+      return res.data;
+    });
+};

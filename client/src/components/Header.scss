@@ -15,11 +15,13 @@
 
   .container {
     justify-content: space-around;
+    align-items: center;
     flex: 1;
     padding-left: $freeSpace;
     padding-right: $freeSpace;
 
     button {
+      margin-left: $freeSpace;
       font-size: 17px;
       @include btn();
     }

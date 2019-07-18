@@ -6,6 +6,7 @@ import SignupPage from "../pages/SignupPage";
 import SigninPage from "../pages/SigninPage";
 import TaskPage from "../pages/TaskPage";
 import NotFoundPage from "../pages/NotFoundPage";
+import UserInfoPage from "../pages/UserInfoPage";
 import { logIn } from "../libs/actions";
 
 import "./Main.scss";
@@ -15,8 +16,10 @@ function Main(props) {
     <main className="main">
       <Switch>
         {!props.me.token && <Redirect from="/" to="/signin" exact />}
+        {!props.me.token && <Redirect from="/user" to="/signin" exact />}
         {!props.me.token && <Route path="/signup" component={SignupPage} />}
         {!props.me.token && <Route path="/signin" component={SigninPage} />}
+        {props.me.token && <Route path="/user" component={UserInfoPage} />}
         {props.me.token && <Route path="/" component={TaskPage} />}
         <Route component={NotFoundPage} />
       </Switch>

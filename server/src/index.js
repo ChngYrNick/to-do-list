@@ -4,6 +4,7 @@ import cors from "cors";
 
 import auth from "./routes/auth";
 import tasks from "./routes/tasks";
+import users from "./routes/users";
 import tokenParser from "./middleware/tokenParser";
 import protectRoute from "./middleware/proctectRoute";
 import database from "./database";
@@ -23,6 +24,8 @@ app.use(bodyParser.json());
 app.use(tokenParser);
 
 app.use("/api", auth);
+
+app.use("/api/", users);
 
 app.use("/api", protectRoute, tasks);
 

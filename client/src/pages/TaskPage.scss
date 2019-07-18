@@ -4,6 +4,7 @@
   .toolbar {
     display: flex;
     margin-bottom: $freeSpace;
+    flex-direction: row;
     .btns {
       display: flex;
       flex-direction: row;
@@ -86,6 +87,30 @@
       .text {
         flex-grow: 1;
         width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .toolbar {
+      flex-direction: column;
+
+      .btns {
+        margin-top: $freeSpace;
+        .btn {
+          margin-left: $freeSpace;
+          font-size: 17px;
+          @include btn(57px, 100%);
+          &:first-child {
+            margin-left: 0px;
+          }
+        }
+
+        .add-btn {
+          margin-left: $freeSpace;
+          font-size: 17px;
+          @include btn(57px, 100%, rgb(0, 255, 51));
+        }
       }
     }
   }

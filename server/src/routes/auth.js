@@ -13,7 +13,6 @@ router.post("/auth/signin", (req, res) => {
         if (isMatch) {
           const { _id, login } = user;
           const token = jwt.sign({ userId: _id }, key);
-          console.log(token);
           res.status(200).json({
             userId: _id,
             token,
@@ -36,7 +35,7 @@ router.post("/auth/signup", (req, res) => {
     } else {
       const { login, password } = req.body;
 
-      const newUser = new User({ login, password });
+      const newUser = new User({ login, password, date: Date.now() });
 
       newUser.save();
 
