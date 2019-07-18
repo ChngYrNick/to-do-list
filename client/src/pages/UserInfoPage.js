@@ -16,14 +16,6 @@ function UserInfoPage() {
   const renderInfo = () => {
     const { login, date } = user;
 
-    const newDate = {
-      day: new Date(date).getDay(),
-      month: new Date(date).getMonth(),
-      year: new Date(date).getFullYear(),
-      hours: new Date(date).getHours(),
-      minutes: new Date(date).getMinutes()
-    };
-
     return (
       <div className="body">
         <div className="name">
@@ -31,11 +23,7 @@ function UserInfoPage() {
         </div>
         <div className="date">
           <span>{"Registration date:"}</span>
-          <span>
-            {`${newDate.day}/${newDate.month}/${newDate.year} ${
-              newDate.hours
-            }:${newDate.minutes}`}
-          </span>
+          <span>{new Date(date).toString()}</span>
         </div>
       </div>
     );
