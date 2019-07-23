@@ -49,8 +49,8 @@ function TaskList(props) {
 
   return props.data.map(val => {
     const date = {
-      day: new Date(val.date).getDay(),
-      month: new Date(val.date).getMonth(),
+      day: new Date(val.date).getDate(),
+      month: new Date(val.date).getMonth() + 1,
       year: new Date(val.date).getFullYear(),
       hours: new Date(val.date).getHours(),
       minutes: new Date(val.date).getMinutes()

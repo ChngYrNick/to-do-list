@@ -6,7 +6,7 @@ import { addTask } from "../libs/TasksFunctions";
 import { mountInputModal, unmountInputModal } from "../libs/actions";
 
 function Toolbar(props) {
-  const [sorted, setSorted] = useState({ title: true, date: true });
+  const [sorted, setSorted] = useState({ title: false, date: false });
 
   const sort = type => {
     const { update, data } = props;
@@ -39,6 +39,7 @@ function Toolbar(props) {
 
   const reset = () => {
     const { initialData, update } = props;
+    setSorted({ title: false, date: false });
     update(initialData);
   };
 
