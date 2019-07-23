@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { connect } from "react-redux";
 
 import { AddInput } from "../libs/inputs";
@@ -6,42 +6,46 @@ import { addTask } from "../libs/TasksFunctions";
 import { mountInputModal, unmountInputModal } from "../libs/actions";
 
 function Toolbar(props) {
-  const [sorted, setSorted] = useState({ title: false, date: false });
+  const initialState = { title: false, date: false };
 
-  const sort = type => {
-    const { update, data } = props;
+  const sort = (state, action) => {
+    const { initialData, update, data } = props;
 
-    const isSorted = sorted[type];
+    const type = action.type;
 
-    let direction = isSorted ? 1 : -1;
+    if (type in state) {
+      const isSorted = state[type];
 
-    const sortedData = [].slice.call(data).sort((a, b) => {
-      return a[type] === b[type]
-        ? 0
-        : a[type] > b[type]
-        ? direction
-        : direction * -1;
-    });
+      let direction = isSorted ? 1 : -1;
 
-    const temp = {};
-    for (let key in sorted) {
-      if (key === type) {
-        temp[key] = !isSorted;
-      } else {
-        temp[key] = sorted[key];
-      }
+      const sortedData = [].slice.call(data).sort((a, b) => {
+        return a[type] === b[type]
+          ? 0
+          : a[type] > b[type]
+          ? direction
+          : direction * -1;
+      });
+
+      update(sortedData);
     }
 
-    setSorted(temp);
+    const { title, date } = state;
 
-    update(sortedData);
+    switch (type) {
+      case "title":
+        return { title: !title, date };
+      case "date":
+        return { title, date: !date };
+      case "reset":
+        update(initialData);
+        return initialState;
+      default:
+        throw new Error();
+    }
   };
 
-  const reset = () => {
-    const { initialData, update } = props;
-    setSorted({ title: false, date: false });
-    update(initialData);
-  };
+  // eslint-disable-next-line
+  const [state, dispatch] = useReducer(sort, initialState);
 
   const onAdd = () => {
     const {
@@ -66,13 +70,13 @@ function Toolbar(props) {
 
   return (
     <div className="btns">
-      <button className="btn" onClick={() => sort("title")}>
+      <button className="btn" onClick={() => dispatch({ type: "title" })}>
         Sort by title
       </button>
-      <button className="btn" onClick={() => sort("date")}>
+      <button className="btn" onClick={() => dispatch({ type: "date" })}>
         Sort by date
       </button>
-      <button className="btn" onClick={() => reset()}>
+      <button className="btn" onClick={() => dispatch({ type: "reset" })}>
         Reset
       </button>
       <button className="add-btn" onClick={() => onAdd()}>
