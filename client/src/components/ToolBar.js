@@ -79,7 +79,7 @@ function Toolbar(props) {
       <button className="btn" onClick={() => dispatch({ type: "reset" })}>
         Reset
       </button>
-      <button className="add-btn" onClick={() => onAdd()}>
+      <button className="btn" onClick={() => onAdd()}>
         Add
       </button>
     </div>

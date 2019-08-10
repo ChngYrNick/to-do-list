@@ -1,10 +1,10 @@
 $blackColor: #333;
 $whiteColor: #fff;
-$borderColor: #dadada;
+$borderColor: #ddd;
 $primaryColor: #0ebbff;
 $freeSpace: 15px;
 $headerHeight: 60px;
-$shadow: 0 0 3px rgba(141, 141, 141, 0.5);
+$shadow: 0 0 4px rgba(141, 141, 141, 0.3);
 $asideFreeSpace: 250px;
 
 @mixin btn($height: 28px, $width: 65px, $color: $primaryColor) {
