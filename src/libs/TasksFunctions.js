@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getList = () => {
   return axios
-    .get("https://task-list-react-server.herokuapp.com:3001/api/tasks", {
+    .get("https://task-list-react-server.herokuapp.com:8080/api/tasks", {
       headers: { "Content-Type": "application/json" }
     })
     .then(res => {
@@ -13,7 +13,7 @@ export const getList = () => {
 export const addTask = term => {
   return axios
     .post(
-      "https://task-list-react-server.herokuapp.com:3001/api/task",
+      "https://task-list-react-server.herokuapp.com:8080/api/task",
       {
         title: term,
         date: Date.now()
@@ -30,7 +30,7 @@ export const addTask = term => {
 export const deleteTask = term => {
   return axios
     .delete(
-      `https://task-list-react-server.herokuapp.com:3001/api/task/${term}`,
+      `https://task-list-react-server.herokuapp.com:8080/api/task/${term}`,
       {
         headers: { "Content-Type": "application/json" }
       }
@@ -46,7 +46,7 @@ export const deleteTask = term => {
 export const editTask = (term, id) => {
   return axios
     .put(
-      `https://task-list-react-server.herokuapp.com:3001/api/task/${id}`,
+      `https://task-list-react-server.herokuapp.com:8080/api/task/${id}`,
       {
         title: term,
         date: Date.now()
