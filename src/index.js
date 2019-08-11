@@ -1,22 +1,47 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import path from "path";
 
-import App from "./App";
-import { store } from "./libs/store";
-import * as serviceWorker from "./serviceWorker";
+import auth from "./routes/auth";
+import tasks from "./routes/tasks";
+import users from "./routes/users";
+import tokenParser from "./middleware/tokenParser";
+import protectRoute from "./middleware/proctectRoute";
+import database from "./database";
+import { port, originURL } from "./utils/config";
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
+const app = express();
+
+app.use(
+  cors({
+    origin: originURL,
+    credentials: true
+  })
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+app.use(bodyParser.json());
+
+app.use(tokenParser);
+
+app.use("/api", auth);
+
+app.use("/api/", users);
+
+app.use("/api", protectRoute, tasks);
+
+app.use(express.static(path.resolve(__dirname, "../", "client", "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"));
+});
+
+database()
+  .then(info => {
+    console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
+    app.listen(port, () => console.log(`Server started on port ${port}`));
+  })
+  .catch(() => {
+    console.error("Unable to connect to database");
+    process.exit(1);
+  });

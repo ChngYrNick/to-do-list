@@ -3,7 +3,7 @@ import axios from "axios";
 export const signIn = (login, password) => {
   return axios
     .post(
-      "http://localhost:3001/api/auth/signin",
+      "/api/auth/signin",
       {
         login,
         password
@@ -20,7 +20,7 @@ export const signIn = (login, password) => {
 export const signUp = (login, password) => {
   return axios
     .post(
-      "http://localhost:3001/api/auth/signup",
+      "/api/auth/signup",
       {
         login,
         password
@@ -36,7 +36,7 @@ export const signUp = (login, password) => {
 
 export const getUserInfo = () => {
   return axios
-    .get("http://localhost:3001/api/user", {
+    .get("/api/user", {
       headers: { "Content-Type": "application/json" }
     })
     .then(res => {
