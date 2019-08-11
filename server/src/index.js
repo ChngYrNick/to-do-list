@@ -21,6 +21,10 @@ app.use("/api/", users);
 
 app.use("/api", protectRoute, tasks);
 
+app.get("/", function(req, res) {
+  res.send("Task list server");
+});
+
 database()
   .then(info => {
     console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
