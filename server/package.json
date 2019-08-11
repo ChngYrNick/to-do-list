@@ -10,7 +10,7 @@
   "scripts": {
     "server": "nodemon --exec babel-node src/index.js",
     "heroku-postbuild": "npm install",
-    "start": "babel-node server/src/index.js"
+    "start": "babel-node src/index.js"
   },
   "author": "",
   "license": "ISC",
