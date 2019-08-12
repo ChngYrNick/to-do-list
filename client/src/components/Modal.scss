@@ -55,4 +55,16 @@
       @include btn();
     }
   }
+
+  @media (max-width: 767px) {
+    .modalWindow {
+      width: 100%;
+      .modalHeader,
+      .modalBody,
+      .modalFooter {
+        margin-right: $freeSpace;
+        margin-left: $freeSpace;
+      }
+    }
+  }
 }
