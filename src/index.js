@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
-import csp from "helmet-csp";
 
 import auth from "./routes/auth";
 import tasks from "./routes/tasks";
@@ -18,14 +17,6 @@ app.use(
   cors({
     origin: originURL,
     credentials: true
-  })
-);
-
-app.use(
-  csp({
-    directives: {
-      fontSrc: [`'self'`, `data:`]
-    }
   })
 );
 
